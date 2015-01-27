@@ -243,11 +243,15 @@ BasicBolt.prototype.__emit = function(commandDetails) {
 BasicBolt.prototype.handleNewCommand = function(command) {
     var self = this;
     var tup = new Tuple(command["id"], command["comp"], command["stream"], command["task"], command["tuple"]);
+    self.log("BasicBolt handleNewCommand===============>");
+    self.log(JSON.stringify(tup));
     var callback = function(err) {
           if (err) {
               self.fail(tup, err);
               return;
           }
+          self.log("BOLT===============>");
+          self.log(JSON.stringify(tup));
           self.ack(tup);
       }
     this.process(tup, callback);
